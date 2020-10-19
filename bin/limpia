@@ -1,0 +1,11 @@
+#!/bin/bash
+
+docker ps -a
+
+docker stop scsp-tomcat
+docker stop scsp-emisor-pg
+docker rm scsp-tomcat
+docker rm scsp-emisor-pg
+
+rm -r ./builds/postgresql-dist/postgresql/data
+rm -r ./builds/postgresql-dist/postgresql/scsp_emisor

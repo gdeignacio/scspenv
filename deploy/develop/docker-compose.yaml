@@ -1,0 +1,37 @@
+version: '3'
+services:
+  appserver:
+    image: tomcat:alpine
+    container_name: scsp-tomcat
+    hostname: scsptomcat
+    restart: always
+    ports:
+      - "28080:8080"
+      - "28443:8443"
+    volumes: 
+      - ../../builds/tomcat-dist/tomcat/conf/server.xml:/usr/local/tomcat/conf/server.xml:ro
+      - ../../builds/tomcat-dist/tomcat/conf/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml:ro
+      - ../../builds/tomcat-dist/tomcat/conf/Catalina/localhost/context.xml:/usr/local/tomcat/conf/Catalina/localhost/manager.xml:ro
+      - ../../builds/tomcat-dist/tomcat/conf/Catalina/localhost/context.xml:/usr/local/tomcat/conf/Catalina/localhost/host-manager.xml:ro
+      - ../../builds/tomcat-dist/tomcat/certificados:/usr/local/tomcat/certificados:ro
+      - ../../builds/tomcat-dist/tomcat/logs:/usr/local/tomcat/logs
+      - ../../builds/tomcat-dist/tomcat/lib/postgresql-42.2.16.jar:/usr/local/tomcat/lib/postgresql-42.2.16.jar:ro
+  scsp-emisor-db:
+    build:
+      context: ../../builds/postgresql-dist
+    container_name: scsp-emisor-pg
+    hostname: scsp-emisor-pg
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - ../../builds/postgresql-dist/postgresql/data:/var/lib/postgresql/data
+      - ../../builds/postgresql-dist/postgresql/scsp_emisor/tablespaces:/var/lib/postgresql/app/tablespaces
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - LONG_APP_NAME=scsp_emisor
+      - SHORT_APP_NAME=emi
+
+
+
+    
