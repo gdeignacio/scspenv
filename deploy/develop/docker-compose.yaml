@@ -7,7 +7,7 @@ services:
     restart: always
     ports:
       - "28080:8080"
-      - "28443:8443"
+      - "8443:8443"
     volumes: 
       - ../../builds/tomcat-dist/tomcat/conf/server.xml:/usr/local/tomcat/conf/server.xml:ro
       - ../../builds/tomcat-dist/tomcat/conf/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml:ro

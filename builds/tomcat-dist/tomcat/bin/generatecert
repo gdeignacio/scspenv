@@ -1,0 +1,37 @@
+#!/bin/bash
+
+####################
+###Generate certs###
+####################
+
+export NAMECA=devimi
+export NAMECLIENT=devimiclient
+export NAMESERVER=devimiserver
+export PASS=changeit
+
+
+openssl genrsa -out ${NAMECA}ca.key -aes256 -passout pass:${PASS} 4096
+openssl req -new -x509 -key ${NAMECA}ca.key -days 3560 -sha256 -out ${NAMECA}ca.pem -passin pass:${PASS}
+openssl rsa -in ${NAMECA}ca.key -out ${NAMECA}ca.key -passin pass:${PASS}
+
+keytool -genkey -keyalg RSA -alias ${NAMECLIENT} -keystore ${NAMECLIENT}.jks -storepass ${PASS} -validity 1000
+keytool -genkey -keyalg RSA -alias ${NAMESERVER} -keystore ${NAMESERVER}.jks -storepass ${PASS} -validity 1000
+
+keytool -certreq -v -alias ${NAMECLIENT} -keystore ${NAMECLIENT}.jks -storepass ${PASS} -file ${NAMECLIENT}.csr
+keytool -certreq -v -alias ${NAMESERVER} -keystore ${NAMESERVER}.jks -storepass ${PASS} -file ${NAMESERVER}.csr
+
+openssl x509 -req -CA ${NAMECA}ca.pem -CAkey ${NAMECA}ca.key -in ${NAMECLIENT}.csr -out ${NAMECLIENT}.cer -days 1000 -CAcreateserial
+openssl x509 -req -CA ${NAMECA}ca.pem -CAkey ${NAMECA}ca.key -in ${NAMESERVER}.csr -out ${NAMESERVER}.cer -days 1000 -CAcreateserial
+
+keytool -import -keystore ${NAMECLIENT}.jks -file ${NAMECA}ca.pem -alias ${NAMECA}rootca
+keytool -import -keystore ${NAMESERVER}.jks -file ${NAMECA}ca.pem -alias ${NAMECA}rootca
+
+keytool -import -keystore ${NAMECLIENT}.jks -file ${NAMECLIENT}.cer -alias ${NAMECLIENT}
+keytool -import -keystore ${NAMESERVER}.jks -file ${NAMESERVER}.cer -alias ${NAMESERVER}
+
+keytool -importkeystore -srckeystore ${NAMECLIENT}.jks -destkeystore ${NAMECLIENT}.p12 -srcstoretype JKS -deststoretype PKCS12 -srcstorepass ${PASS} -deststorepass ${PASS} -srcalias ${NAMECLIENT} -destalias ${NAMECLIENT} -srckeypass ${PASS} -destkeypass ${PASS} -noprompt
+keytool -importkeystore -srckeystore ${NAMESERVER}.jks -destkeystore ${NAMESERVER}.p12 -srcstoretype JKS -deststoretype PKCS12 -srcstorepass ${PASS} -deststorepass ${PASS} -srcalias ${NAMESERVER} -destalias ${NAMESERVER} -srckeypass ${PASS} -destkeypass ${PASS} -noprompt
+
+keytool -import -trustcacerts -alias ${NAMECA} -file ${NAMECA}ca.pem -keystore ${NAMESERVER}trust.jks
+
+
