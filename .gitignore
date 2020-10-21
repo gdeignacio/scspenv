@@ -22,7 +22,7 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-certificados/*
-tomcat/logs/*
-postgresql/data/
-tablespaces/
+builds/tomcat-dist/tomcat/certificados
+builds/tomcat-dist/tomcat/logs
+builds/postgresql-dist/postgresql/data
+builds/postgresql-dist/postgresql/scsp_emisor
