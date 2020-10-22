@@ -1,0 +1,23 @@
+#!/bin/bash
+
+####################
+###Configure admin##
+####################
+
+ZIP=$(which zip)
+
+PROJECT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
+DESTPATH=${PROJECT_PATH}/webapps/scsp-admin
+
+
+echo "Changing dir from" ${PROJECT_PATH} to ${DESTPATH}
+
+echo "[$(date +"%Y-%m-%d %T")] Configuring test war using " ${ZIP}
+
+cd ${DESTPATH}
+
+cp ../scsp-admin*.war scsp-admin.war
+
+${ZIP} scsp-admin.war WEB-INF/classes/*
+
+cd ${PROJECT_PATH}

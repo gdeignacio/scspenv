@@ -17,6 +17,7 @@ services:
       - ../../builds/tomcat-dist/tomcat/logs:/usr/local/tomcat/logs
       - ../../builds/tomcat-dist/tomcat/lib/postgresql-42.2.16.jar:/usr/local/tomcat/lib/postgresql-42.2.16.jar:ro
       - ../../builds/tomcat-dist/tomcat/webapps/TestConfiguracion/TestConfiguracion.war:/usr/local/tomcat/webapps/TestConfiguracion.war:ro
+      - ../../builds/tomcat-dist/tomcat/webapps/scsp-admin/scsp-admin.war:/usr/local/tomcat/webapps/scsp-admin.war:ro
     depends_on: 
       - scsp-emisor-db
       - scsp-admin-db
