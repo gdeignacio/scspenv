@@ -6,7 +6,7 @@ services:
     hostname: scsptomcat
     restart: always
     ports:
-      - "28080:8080"
+      - "8080:8080"
       - "8443:8443"
     volumes: 
       - ../../builds/tomcat-dist/tomcat/conf/server.xml:/usr/local/tomcat/conf/server.xml:ro
@@ -16,6 +16,10 @@ services:
       - ../../builds/tomcat-dist/tomcat/certificados:/usr/local/tomcat/certificados:ro
       - ../../builds/tomcat-dist/tomcat/logs:/usr/local/tomcat/logs
       - ../../builds/tomcat-dist/tomcat/lib/postgresql-42.2.16.jar:/usr/local/tomcat/lib/postgresql-42.2.16.jar:ro
+      - ../../builds/tomcat-dist/tomcat/webapps/TestConfiguracion/TestConfiguracion.war:/usr/local/tomcat/webapps/TestConfiguracion.war:ro
+    depends_on: 
+      - scsp-emisor-db
+      - scsp-admin-db
   scsp-emisor-db:
     build:
       context: ../../builds/postgresql-dist
@@ -23,14 +27,29 @@ services:
     hostname: scsp-emisor-pg
     restart: always
     ports:
-      - "5432:5432"
+      - "5441:5432"
     volumes:
-      - ../../builds/postgresql-dist/postgresql/data:/var/lib/postgresql/data
+      - ../../builds/postgresql-dist/postgresql/scsp_emisor/data:/var/lib/postgresql/data
       - ../../builds/postgresql-dist/postgresql/scsp_emisor/tablespaces:/var/lib/postgresql/app/tablespaces
     environment:
       - POSTGRES_PASSWORD=postgres
       - LONG_APP_NAME=scsp_emisor
       - SHORT_APP_NAME=emi
+  scsp-admin-db:
+    build:
+      context: ../../builds/postgresql-dist
+    container_name: scsp-admin-pg
+    hostname: scsp-admin-pg
+    restart: always
+    ports:
+      - "5442:5432"
+    volumes:
+      - ../../builds/postgresql-dist/postgresql/scsp_admin/data:/var/lib/postgresql/data
+      - ../../builds/postgresql-dist/postgresql/scsp_admin/tablespaces:/var/lib/postgresql/app/tablespaces
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - LONG_APP_NAME=scsp_admin
+      - SHORT_APP_NAME=adm
 
 
 

@@ -24,5 +24,5 @@ hs_err_pid*
 
 builds/tomcat-dist/tomcat/certificados
 builds/tomcat-dist/tomcat/logs
-builds/postgresql-dist/postgresql/data
 builds/postgresql-dist/postgresql/scsp_emisor
+builds/postgresql-dist/postgresql/scsp_admin

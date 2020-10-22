@@ -1,0 +1,23 @@
+#!/bin/bash
+
+####################
+###Configure test###
+####################
+
+ZIP=$(which zip)
+
+PROJECT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
+DESTPATH=${PROJECT_PATH}/webapps/TestConfiguracion
+
+
+echo "Changing dir from" ${PROJECT_PATH} to ${DESTPATH}
+
+echo "[$(date +"%Y-%m-%d %T")] Configuring test war using " ${ZIP}
+
+cd ${DESTPATH}
+
+cp ../TestConfiguracion*.war TestConfiguracion.war
+
+${ZIP} TestConfiguracion.war WEB-INF/classes/*
+
+cd ${PROJECT_PATH}
