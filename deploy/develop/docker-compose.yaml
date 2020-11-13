@@ -21,7 +21,6 @@ services:
     depends_on: 
       - scsp-emisor-db
       - scsp-admin-db
-    network_mode: host
   scsp-emisor-db:
     build:
       context: ../../builds/postgresql-dist
@@ -37,7 +36,6 @@ services:
       - POSTGRES_PASSWORD=postgres
       - LONG_APP_NAME=scsp_emisor
       - SHORT_APP_NAME=emi
-    network_mode: host
   scsp-admin-db:
     build:
       context: ../../builds/postgresql-dist
@@ -53,7 +51,6 @@ services:
       - POSTGRES_PASSWORD=postgres
       - LONG_APP_NAME=scsp_admin
       - SHORT_APP_NAME=adm
-    network_mode: host
 
 
 
