@@ -135,9 +135,9 @@
                clientAuth="true"
                sslProtocol="TLS"
                keystoreFile="./certificados/Sello_de_entidad.p12"
-               keystoreType="1234"
+               keystoreType="PKCS12"
                keystorePass="changeit"
-               truststoreFile="./certificados/Sello_de_entidad.jks"
+               truststoreFile="./certificados/Sello_de_entidad.p12"
                truststoreType="PKCS12"
                truststorePass="1234"
                />
