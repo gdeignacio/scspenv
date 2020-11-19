@@ -6,8 +6,8 @@ services:
     hostname: scsptomcat
     restart: always
     ports:
-      - "8080:8080"
-      - "8443:8443"
+      - "18080:8080"
+      - "18443:8443"
     volumes: 
       - ../../builds/tomcat-dist/tomcat/conf/server.xml:/usr/local/tomcat/conf/server.xml:ro
       - ../../builds/tomcat-dist/tomcat/conf/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml:ro
