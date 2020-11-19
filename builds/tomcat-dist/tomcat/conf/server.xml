@@ -134,11 +134,12 @@
                secure="true"
                clientAuth="true"
                sslProtocol="TLS"
-               keystoreFile="./certificados/devimiserver.p12"
-               keystoreType="PKCS12"
+               keystoreFile="./certificados/Sello_de_entidad.p12"
+               keystoreType="1234"
                keystorePass="changeit"
-               truststoreFile="./certificados/devimiservertrust.jks"
-               truststoreType="JKS" truststorePass="changeit"
+               truststoreFile="./certificados/Sello_de_entidad.jks"
+               truststoreType="PKCS12"
+               truststorePass="1234"
                />
 
 
