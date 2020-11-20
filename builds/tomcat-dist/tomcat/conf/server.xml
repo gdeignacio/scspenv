@@ -137,9 +137,9 @@
                keystoreFile="./certificados/devimiserver.p12"
                keystoreType="PKCS12"
                keystorePass="changeit" 
-               truststoreFile="./certificados/pinbaltrust.jks"
+               truststoreFile="./certificados/devimiservertrust.jks"
                truststoreType="JKS"
-               truststorePass="cime2019" />
+               truststorePass="changeit" />
                
 
 
