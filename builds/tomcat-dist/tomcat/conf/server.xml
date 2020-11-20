@@ -134,12 +134,12 @@
                secure="true"
                clientAuth="true"
                sslProtocol="TLS"
-               keystoreFile="./certificados/Sello_de_entidad.p12"
+               keystoreFile="./certificados/pinbal.p12"
                keystoreType="PKCS12"
-               keystorePass="changeit" />
-               <!-- truststoreFile="./certificados/Sello_de_entidad.p12"
-               truststoreType="PKCS12"
-               truststorePass="1234" -->
+               keystorePass="cime2019" 
+               truststoreFile="./certificados/pinbaltrust.jks"
+               truststoreType="JKS"
+               truststorePass="cime2019" />
                
 
 
