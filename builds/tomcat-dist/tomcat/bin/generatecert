@@ -50,4 +50,10 @@ keytool -importkeystore -srckeystore ${NAMESERVER}.jks -destkeystore ${NAMESERVE
 echo "import trustcacerts"
 keytool -import -trustcacerts -alias ${NAMECA} -file ${NAMECA}ca.pem -keystore ${NAMESERVER}trust.jks -storepass ${PASS} -noprompt
 
-
+mv *.key ../certificados/ssl
+mv *.pem ../certificados/ssl
+mv *.srl ../certificados/ssl
+mv *.cer ../certificados/ssl
+mv *.csr ../certificados/ssl
+mv *.jks ../certificados/ssl
+mv *.p12 ../certificados/ssl
