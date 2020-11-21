@@ -134,9 +134,9 @@
                secure="true"
                clientAuth="true"
                sslProtocol="TLS"
-               keystoreFile="./certificados/devimiserver.p12"
+               keystoreFile="./certificados/pinbal.p12"
                keystoreType="PKCS12"
-               keystorePass="changeit" 
+               keystorePass="cime2019" 
                truststoreFile="./certificados/devimiservertrust.jks"
                truststoreType="JKS"
                truststorePass="changeit" />
