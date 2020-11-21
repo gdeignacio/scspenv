@@ -134,10 +134,10 @@
                secure="true"
                clientAuth="true"
                sslProtocol="TLS"
-               keystoreFile="./certificados/pinbal.p12"
+               keystoreFile="./certificados/proves-fbit-server.p12"
                keystoreType="PKCS12"
-               keystorePass="cime2019" 
-               truststoreFile="./certificados/devimiservertrust.jks"
+               keystorePass="changeit" 
+               truststoreFile="./certificados/proves-fbit-servertrust.jks"
                truststoreType="JKS"
                truststorePass="changeit" />
                
