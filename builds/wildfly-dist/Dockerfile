@@ -66,14 +66,14 @@ RUN bin/add-user.sh ${ADMIN_USER} ${ADMIN_PASSWORD} --silent
 
 # PostgreSQL drivers
 RUN curl -OL https://jdbc.postgresql.org/download/postgresql-${POSTGRESQL_JDBC_VERSION}.jar
-COPY scripts/driver-postgresql-install-offline.cli bin
+COPY ./wildfly/bin/driver-postgresql-install-offline.cli bin
 RUN bin/jboss-cli.sh --file=bin/driver-postgresql-install-offline.cli && \
     rm postgresql-42.2.5.jar && \
     rm bin/driver-postgresql-install-offline.cli
 
 # Oracle drivers
 RUN curl -OL https://repo1.maven.org/maven2/com/oracle/database/jdbc/ojdbc8/${ORACLE_JDBC_VERSION}/ojdbc8-${ORACLE_JDBC_VERSION}.jar
-COPY scripts/driver-oracle-install-offline.cli bin
+COPY ./wildfly/bin/driver-oracle-install-offline.cli bin
 RUN bin/jboss-cli.sh --file=bin/driver-oracle-install-offline.cli && \
     rm ojdbc8-${ORACLE_JDBC_VERSION}.jar && \
     rm bin/driver-oracle-install-offline.cli
@@ -81,13 +81,13 @@ RUN bin/jboss-cli.sh --file=bin/driver-oracle-install-offline.cli && \
 # Wildfly-Keycloak connector
 RUN curl -L https://downloads.jboss.org/keycloak/${KEYCLOAK_VERSION}/adapters/keycloak-oidc/keycloak-wildfly-adapter-dist-${KEYCLOAK_VERSION}.tar.gz | tar zx &&\
     bin/jboss-cli.sh --file=bin/adapter-install-offline.cli
-COPY scripts/goibusuari-add-keycloak-offline.cli bin
+COPY ./wildfly/bin/goibusuari-add-keycloak-offline.cli bin
 RUN sed -i "s/<resolve-parameter-values>false<\/resolve-parameter-values>/ <resolve-parameter-values>true<\/resolve-parameter-values>/" bin/jboss-cli.xml &&\ 
     bin/jboss-cli.sh --file=bin/goibusuari-add-keycloak-offline.cli --properties=/tmp/env.properties
 
 RUN rm -rf standalone/configuration/standalone_xml_history/current
 
-COPY files/goibusuari.ear ${JBOSS_HOME}/standalone/deployments/
+COPY ./wildfly/files/goibusuari.ear ${JBOSS_HOME}/standalone/deployments/
 
 EXPOSE 8080 8443 9990
 ENTRYPOINT ["/bin/bash", "-c"]

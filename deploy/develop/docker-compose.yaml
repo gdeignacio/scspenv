@@ -1,5 +1,37 @@
-version: '2'
+version: '3.6'
 services:
+  wildfly:
+    build:
+      context: ../../builds/wildfly-dist
+    container_name: wildfly-goib
+    environment:
+     - ADMIN_USER=admin
+     - ADMIN_PASSWORD=admin
+    ports:
+     - 8080:8080
+     - 9990:9990
+    volumes:
+     - /tmp/deployments:/opt/jboss/wildfly/standalone/deployments
+     # - C:\tmp\deployments:/opt/jboss/wildfly/standalone/deployments
+    depends_on:
+      - keycloak
+  keycloak:
+    build:
+      context: ../../builds/keycloak-dist
+    container_name: keycloak-goib
+    environment:
+     - KEYCLOAK_USER=admin
+     - KEYCLOAK_PASSWORD=admin
+     - KEYCLOAK_IMPORT=/tmp/import-goib-realm.json
+    ports:
+     - 8180:8180
+    volumes: 
+      - ../../builds/keycloak-dist/keycloak/conf/import-goib-realm.json:/tmp/import-goib-realm.json
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://keycloak-goib:8180/auth/realms/GOIB"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
   appserver:
     image: tomcat:alpine
     container_name: scsp-tomcat

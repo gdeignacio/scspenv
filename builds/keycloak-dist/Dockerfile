@@ -24,7 +24,7 @@ ENV KEYCLOAK_USER=admin \
 
 WORKDIR /opt/jboss/
 
-COPY scripts/import-goib-realm.json /tmp
+COPY ./keycloak/conf/import-goib-realm.json /tmp
 
 USER jboss
 
